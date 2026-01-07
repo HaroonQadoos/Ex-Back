@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
@@ -9,11 +8,9 @@ const uploadRoutes = require("./routes/uploadRoutes");
 const postRoutes = require("./routes/postRoutes");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
-
+const app = express();
 dotenv.config();
 connectDB();
-
-const app = express();
 
 app.use(
   cors({

@@ -1,6 +1,6 @@
-import { v2 as cloudinary } from "cloudinary";
-import multer from "multer";
-import streamifier from "streamifier";
+const { v2: cloudinary } = require("cloudinary");
+const multer = require("multer");
+const streamifier = require("streamifier");
 
 // Cloudinary config
 cloudinary.config({
@@ -13,14 +13,13 @@ cloudinary.config({
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-export default [
-  upload.single("image"), // multer middleware
+const uploadImage = [
+  upload.single("image"),
   async (req, res) => {
     try {
       if (!req.file)
         return res.status(400).json({ message: "No file uploaded" });
 
-      // Upload to Cloudinary via streamifier
       const streamUpload = (buffer) =>
         new Promise((resolve, reject) => {
           const stream = cloudinary.uploader.upload_stream(
@@ -41,3 +40,5 @@ export default [
     }
   },
 ];
+
+module.exports = { uploadImage };
