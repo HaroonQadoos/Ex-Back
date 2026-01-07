@@ -13,7 +13,7 @@ cloudinary.config({
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-export const uploadImage = [
+export default [
   upload.single("image"), // multer middleware
   async (req, res) => {
     try {
