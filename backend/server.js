@@ -15,7 +15,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"], // frontend origin
+    origin: [
+      "https://ex-dash-bz1o.vercel.app",
+      "https://explore-front-z5vz.vercel.app",
+    ], // frontend origin
     credentials: true, // allow cookies
   })
 );
