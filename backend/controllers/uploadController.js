@@ -13,13 +13,10 @@ cloudinary.config({
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).end(); // Method not allowed
-
-  try {
-    // Use multer to parse multipart/form-data
-    upload.single("image")(req, {}, async (err) => {
-      if (err) return res.status(400).json({ message: err.message });
+export const uploadImage = [
+  upload.single("image"), // multer middleware
+  async (req, res) => {
+    try {
       if (!req.file)
         return res.status(400).json({ message: "No file uploaded" });
 
@@ -37,11 +34,10 @@ export default async function handler(req, res) {
         });
 
       const result = await streamUpload(req.file.buffer);
-
       res.status(200).json({ url: result.secure_url });
-    });
-  } catch (error) {
-    console.error("Vercel Upload Error:", error);
-    res.status(500).json({ message: "Cloudinary upload failed" });
-  }
-}
+    } catch (error) {
+      console.error("Express Upload Error:", error);
+      res.status(500).json({ message: "Cloudinary upload failed" });
+    }
+  },
+];
