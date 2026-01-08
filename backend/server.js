@@ -32,7 +32,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
-api.use("/api", testRoutes);
+app.use("/api", testRoutes);
 
 const PORT = process.env.PORT || 5000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
